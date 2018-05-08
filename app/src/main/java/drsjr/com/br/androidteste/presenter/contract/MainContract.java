@@ -8,7 +8,7 @@ public interface MainContract {
 
     interface Action extends BaseContract.BaseAction {
 
-
+        void setView(ViewAction view);
 
     }
 
@@ -16,7 +16,7 @@ public interface MainContract {
 
         void accessPedido();
 
-        void acessLanche();
+        void accessLanche();
 
         void accessPromocao();
 

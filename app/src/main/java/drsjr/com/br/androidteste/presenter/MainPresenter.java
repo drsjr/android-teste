@@ -1,7 +1,6 @@
 package drsjr.com.br.androidteste.presenter;
 
 import android.content.Context;
-import android.view.View;
 
 import drsjr.com.br.androidteste.presenter.contract.MainContract;
 
@@ -12,12 +11,11 @@ import drsjr.com.br.androidteste.presenter.contract.MainContract;
 public class MainPresenter implements MainContract.Action {
 
     private Context _context;
-    private View _view;
+    private MainContract.ViewAction _view;
 
     public MainPresenter(Context context) {
         this._context = context;
     }
-
 
     @Override
     public Context getContext() {
@@ -25,12 +23,12 @@ public class MainPresenter implements MainContract.Action {
     }
 
     @Override
-    public void setView(View view) {
+    public void inProgress(boolean progress) {
 
     }
 
     @Override
-    public void inProgress(boolean progress) {
-
+    public void setView(MainContract.ViewAction view) {
+        this._view = view;
     }
 }
