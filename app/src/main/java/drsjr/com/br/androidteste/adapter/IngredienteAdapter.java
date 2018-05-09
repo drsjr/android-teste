@@ -56,7 +56,13 @@ public class IngredienteAdapter extends RecyclerView.Adapter<IngredienteAdapter.
         return listIngredientes.size();
     }
 
-    class HolderIngrediente extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public void addIngrediente(Ingrediente ingrediente) {
+        listIngredientes.add(ingrediente);
+        notifyDataSetChanged();
+    }
+
+    class HolderIngrediente extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         private ImageView mImage;
         private TextView mName;
@@ -67,6 +73,7 @@ public class IngredienteAdapter extends RecyclerView.Adapter<IngredienteAdapter.
             mImage = (ImageView) itemView.findViewById(R.id.ingred_image);
             mName  = (TextView)  itemView.findViewById(R.id.ingred_name);
             mPrice = (TextView)  itemView.findViewById(R.id.ingred_price);
+            itemView.setOnClickListener(this);
         }
 
         @Override

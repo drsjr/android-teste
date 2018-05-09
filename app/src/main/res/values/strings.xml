@@ -7,6 +7,9 @@
     <string name="menu_add">Adicionar</string>
     <string name="menu_custom">Do seu jeito!</string>
 
+    <string name="menu_save">Salvar!</string>
+    <string name="menu_cancel">Cancelar</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_pedido">Pedido</string>

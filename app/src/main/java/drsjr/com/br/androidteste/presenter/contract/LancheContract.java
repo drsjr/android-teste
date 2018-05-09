@@ -22,7 +22,7 @@ public interface LancheContract {
 
         void populateRecyclerView();
 
-        void populateAdapter(List<Lanche> list);
+        void populateAdapter(List<Lanche> lanches, List<Ingrediente> ingredientes);
 
     }
 }

@@ -17,6 +17,7 @@ public class Lanche implements Parcelable {
     private String image;
     private Long[] extras;
 
+
     public Lanche(){
 
     }
@@ -100,7 +101,6 @@ public class Lanche implements Parcelable {
         this.extras = extras;
     }
 
-
     public Double getPrice(List<Ingrediente> lista) {
         Double price = new Double("0.0");
         for(Ingrediente ing : lista)
@@ -108,7 +108,6 @@ public class Lanche implements Parcelable {
         price = tenPercent(price);
         return price;
     }
-
 
     private Double setIngrediente(Ingrediente ingr) {
         int count = 0;
@@ -119,7 +118,7 @@ public class Lanche implements Parcelable {
             }
         }
 
-        if((ingr.getId() == 5|| ingr.getId() == 3) && count > 3)
+        if((ingr.getId() == 5|| ingr.getId() == 3) && count >= 3)
             return moreThenThree(ingr.getPrice(), count);
 
         return (count * ingr.getPrice());
@@ -127,12 +126,12 @@ public class Lanche implements Parcelable {
     }
 
     private Double tenPercent(Double price) {
-        boolean t = false, n = false;
+        boolean t = true, n = false;
         for(Long i : returnAll() ) {
-            if (i == 3) t = !t;
+            if (i == 2) t = !t;
             if (i == 1) n = !n;
-            if (t && n) return price *(0.9);
         }
+        if (t && n) return price *(0.9);
         return price;
     }
 
@@ -142,7 +141,8 @@ public class Lanche implements Parcelable {
     }
 
     private Long[] returnAll() {
-        Long[] all =  new Long[ingredients.length + extras.length];
+        Long[] all =  new Long[ingredients.length
+                + ( extras != null ?extras.length : 0)];
         int count = 0;
 
         for(Long i : ingredients){
@@ -150,7 +150,7 @@ public class Lanche implements Parcelable {
             count++;
         }
 
-        if(extras.length > 0){
+        if(extras != null && extras.length > 0){
             for(Long i : extras){
                 all[count] = i;
                 count++;

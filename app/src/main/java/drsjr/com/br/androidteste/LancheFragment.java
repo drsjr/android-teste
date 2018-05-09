@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import java.util.List;
 
 import drsjr.com.br.androidteste.adapter.LancheAdapter;
+import drsjr.com.br.androidteste.data.entity.Ingrediente;
 import drsjr.com.br.androidteste.data.entity.Lanche;
 import drsjr.com.br.androidteste.presenter.LanchePresenter;
 import drsjr.com.br.androidteste.presenter.contract.LancheContract;
@@ -77,8 +78,8 @@ public class LancheFragment extends Fragment implements LancheContract.ViewActio
     }
 
     @Override
-    public void populateAdapter(List<Lanche> list) {
-        mAdapter = new LancheAdapter(list, getActivity().getBaseContext());
+    public void populateAdapter(List<Lanche> lanches, List<Ingrediente> ingredientes) {
+        mAdapter = new LancheAdapter(lanches, ingredientes, getContext());
     }
 
 }

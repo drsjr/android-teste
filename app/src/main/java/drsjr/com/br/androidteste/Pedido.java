@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -22,7 +24,6 @@ import drsjr.com.br.androidteste.presenter.PedidoPresenter;
 import drsjr.com.br.androidteste.presenter.contract.PedidoContract;
 
 public class Pedido extends AppCompatActivity implements PedidoContract.ViewAction {
-
 
     private PedidoContract.Action presenter;
     private IngredienteAdapter mAdapter;
@@ -55,7 +56,6 @@ public class Pedido extends AppCompatActivity implements PedidoContract.ViewActi
         setSupportActionBar(toolbar);
 
         mProgress = (ProgressBar) findViewById(R.id.pedido_progress);
-        mImage = (ImageView) findViewById(R.id.pedido_image);
         mRecyclerView = (RecyclerView) findViewById(R.id.pedido_recycler);
 
         mRecyclerView.setHasFixedSize(true);
@@ -77,21 +77,37 @@ public class Pedido extends AppCompatActivity implements PedidoContract.ViewActi
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.pedido_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_save:
+
+                break;
+            case R.id.action_cancel:
+
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == Activity.RESULT_OK)
+        if (resultCode == Activity.RESULT_OK) {
             addIngredients((Ingrediente) data.getExtras().getParcelable("result"));
-
-
+        }
     }
 
     @Override
     public void inProgress(boolean progress) {
         mProgress.setVisibility( progress ? View.VISIBLE : View.GONE);
         mRecyclerView.setVisibility( progress ? View.GONE: View.VISIBLE);
-        mImage.setVisibility( progress ? View.GONE : View.VISIBLE);
     }
 
     @Override
@@ -112,7 +128,7 @@ public class Pedido extends AppCompatActivity implements PedidoContract.ViewActi
     @Override
     public void addIngredients(Ingrediente ingrediente) {
         extras.add(ingrediente);
-        lancheIngredientes.add(ingrediente);
+        mAdapter.addIngrediente(ingrediente);
     }
 
     @Override

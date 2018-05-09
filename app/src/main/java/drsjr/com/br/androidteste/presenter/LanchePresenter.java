@@ -26,10 +26,13 @@ public class LanchePresenter implements LancheContract.Action {
 
     private LancheCallBack _lanche;
     private IngredienteCallBack _ingreditente;
+    private List<Ingrediente> listIngredientes;
+    private List<Lanche> listLanches;
 
     public LanchePresenter(Context context) {
         this._context = context;
         this._lanche = new LancheCallBack();
+        this._ingreditente = new IngredienteCallBack();
     }
 
     @Override
@@ -58,35 +61,44 @@ public class LanchePresenter implements LancheContract.Action {
             @Override
             public void onResponse(Call<List<Lanche>> call, Response<List<Lanche>> response) {
                 List<Lanche> lista = response.body();
-                _view.populateAdapter(lista);
-                _view.populateRecyclerView();
-                inProgress(false);
+                populateListLanche(lista);
+                getIngrediente();
             }
 
             @Override
             public void onFailure(Call<List<Lanche>> call, Throwable t) {
                 Toast.makeText(getContext(), "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                inProgress(false);
             }
         });
     }
 
-    private void getIngredientes(List<Lanche> lanches) {
+    private void getIngrediente() {
+        _ingreditente.getService().getAllIngredientes().enqueue(new Callback<List<Ingrediente>>() {
+            @Override
+            public void onResponse(Call<List<Ingrediente>> call, Response<List<Ingrediente>> response) {
+                List<Ingrediente> lista = response.body();
+                populateListIngrediente(lista);
+                populateAdapter();
+                inProgress(false);
+            }
 
-        for(final Lanche lanche : lanches) {
-            _ingreditente.getService().getIngredienteLancheById(lanche.getId())
-                    .enqueue(new Callback<List<Ingrediente>>() {
-                        @Override
-                        public void onResponse(Call<List<Ingrediente>> call, Response<List<Ingrediente>> response) {
+            @Override
+            public void onFailure(Call<List<Ingrediente>> call, Throwable t) {
+                Toast.makeText(getContext(), "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
-                        }
+    private void populateListIngrediente(List<Ingrediente> lista) {
+        listIngredientes = lista;
+    }
 
-                        @Override
-                        public void onFailure(Call<List<Ingrediente>> call, Throwable t) {
+    private void populateListLanche(List<Lanche> lista) {
+        listLanches = lista;
+    }
 
-                        }
-                    }
-                );
-        }
+    private void populateAdapter() {
+        _view.populateAdapter(listLanches, listIngredientes);
+        _view.populateRecyclerView();
     }
 }

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import drsjr.com.br.androidteste.R;
@@ -27,10 +28,17 @@ import drsjr.com.br.androidteste.presenter.contract.AdapterContract;
 public class LancheAdapter extends RecyclerView.Adapter<LancheAdapter.HolderLanche> implements AdapterContract.LancheViewAction {
 
     private List<Lanche> listLanches;
+    private List<Ingrediente> listIngredientes;
     private AdapterContract.LancheAction presenter;
 
     public LancheAdapter(List<Lanche> lista,  Context context) {
         this.listLanches = lista;
+        presenter = new AdapterPresenter(context);
+    }
+
+    public LancheAdapter(List<Lanche> lanches, List<Ingrediente> ingredientes,  Context context) {
+        this.listLanches = lanches;
+        this.listIngredientes = ingredientes;
         presenter = new AdapterPresenter(context);
     }
 
@@ -47,7 +55,8 @@ public class LancheAdapter extends RecyclerView.Adapter<LancheAdapter.HolderLanc
     public void onBindViewHolder(HolderLanche holder, int position) {
         Lanche lanche = listLanches.get(position);
         holder.mName.setText(lanche.getName());
-        holder.mPrice.setText("$");
+        holder.mPrice.setText("$" + new BigDecimal(lanche.getPrice(listIngredientes).doubleValue())
+                .setScale(2, BigDecimal.ROUND_DOWN));
         Picasso.get().load(lanche.getImage()).into(holder.mImage);
     }
 
