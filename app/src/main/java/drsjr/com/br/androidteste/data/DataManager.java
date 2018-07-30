@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public abstract class DataManager<S> {
 
-    public static final String API_BASE_URL = "http://192.168.1.22:8080/api/";
+    public static final String API_BASE_URL = "http://192.168.1.30:8080/api/";
 
     public DataManager(){
     }

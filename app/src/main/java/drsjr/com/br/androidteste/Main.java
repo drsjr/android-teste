@@ -10,13 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import drsjr.com.br.androidteste.data.entity.Promocao;
 import drsjr.com.br.androidteste.presenter.MainPresenter;
 import drsjr.com.br.androidteste.presenter.contract.MainContract;
 
 public class Main extends AppCompatActivity implements MainContract.ViewAction {
 
-    private View mContainer;
+    @BindView(R.id.container_fragment)
+    View mContainer;
+
+    @BindView(R.id.navigation)
+    BottomNavigationView navigation;
+
     private MainContract.Action presenter;
     private FragmentTransaction mTransaction;
 
@@ -54,8 +61,7 @@ public class Main extends AppCompatActivity implements MainContract.ViewAction {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mContainer = (FrameLayout) findViewById(R.id.container_fragment);
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        ButterKnife.bind(this);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mLanche = LancheFragment.newInstance();
         mPromocao = PromocaoFragment.newInstance();

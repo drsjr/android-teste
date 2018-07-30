@@ -11,6 +11,9 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import butterknife.BindInt;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import drsjr.com.br.androidteste.adapter.IngredienteAdapter;
 import drsjr.com.br.androidteste.data.entity.Ingrediente;
 import drsjr.com.br.androidteste.presenter.ItemPedidoPresenter;
@@ -22,8 +25,12 @@ public class ItemPedido extends AppCompatActivity
 
     private ItemPedidoContract.Action presenter;
     private IngredienteAdapter mAdapter;
-    private RecyclerView mRecycler;
-    private ProgressBar mProgress;
+
+    @BindView(R.id.item_pedido_recycler)
+    RecyclerView mRecycler;
+
+    @BindView(R.id.item_pedido_progress)
+    ProgressBar mProgress;
 
 
     @Override
@@ -39,9 +46,12 @@ public class ItemPedido extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_pedido);
+        ButterKnife.bind(this);
+
+        /*mRecycler = (RecyclerView) findViewById(R.id.item_pedido_recycler);
+        mProgress = (ProgressBar) findViewById(R.id.item_pedido_progress);*/
+
         presenter = new ItemPedidoPresenter(this);
-        mRecycler = (RecyclerView) findViewById(R.id.item_pedido_recycler);
-        mProgress = (ProgressBar) findViewById(R.id.item_pedido_progress);
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mRecycler.setLayoutManager(layoutManager);

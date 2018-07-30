@@ -11,6 +11,8 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import drsjr.com.br.androidteste.adapter.PromocaoAdapter;
 import drsjr.com.br.androidteste.data.entity.Promocao;
 import drsjr.com.br.androidteste.presenter.PromocaoPresenter;
@@ -19,10 +21,13 @@ import drsjr.com.br.androidteste.presenter.contract.PromocaoContract;
 public class PromocaoFragment extends Fragment implements PromocaoContract.ViewAction {
 
     private PromocaoContract.Action presenter;
-
     private PromocaoAdapter mAdapter;
-    private RecyclerView mRecycler;
-    private ProgressBar mProgress;
+
+    @BindView(R.id.promocao_recycler)
+    RecyclerView mRecycler;
+
+    @BindView(R.id.promocao_progress)
+    ProgressBar mProgress;
 
 
     public PromocaoFragment() {
@@ -54,8 +59,11 @@ public class PromocaoFragment extends Fragment implements PromocaoContract.ViewA
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_promocao, container, false);
-        mProgress = view.findViewById(R.id.promocao_progress);
-        mRecycler = view.findViewById(R.id.promocao_recycler);
+        ButterKnife.bind(this, view);
+
+        /*mProgress = view.findViewById(R.id.promocao_progress);
+        mRecycler = view.findViewById(R.id.promocao_recycler);*/
+
         mRecycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecycler.setLayoutManager(layoutManager);

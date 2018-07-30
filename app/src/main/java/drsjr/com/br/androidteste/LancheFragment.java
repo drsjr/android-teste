@@ -12,6 +12,8 @@ import android.widget.ProgressBar;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import drsjr.com.br.androidteste.adapter.LancheAdapter;
 import drsjr.com.br.androidteste.data.entity.Ingrediente;
 import drsjr.com.br.androidteste.data.entity.Lanche;
@@ -24,8 +26,11 @@ public class LancheFragment extends Fragment implements LancheContract.ViewActio
     private LancheContract.Action presenter;
     private LancheAdapter mAdapter;
 
-    private RecyclerView mRecyclerView;
-    private ProgressBar  mProgress;
+    @BindView(R.id.lanche_recycler)
+    RecyclerView mRecyclerView;
+
+    @BindView(R.id.lanche_progress)
+    ProgressBar  mProgress;
 
     public LancheFragment() {
         // Required empty public constructor
@@ -58,8 +63,11 @@ public class LancheFragment extends Fragment implements LancheContract.ViewActio
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lanche, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.lanche_recycler);
-        mProgress = (ProgressBar) view.findViewById(R.id.lanche_progress);
+        ButterKnife.bind(this, view);
+
+        /*mRecyclerView = (RecyclerView) view.findViewById(R.id.lanche_recycler);
+        mProgress = (ProgressBar) view.findViewById(R.id.lanche_progress);*/
+
         mRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(layoutManager);
