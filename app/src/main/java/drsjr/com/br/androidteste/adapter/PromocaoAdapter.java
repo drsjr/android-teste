@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import drsjr.com.br.androidteste.R;
 import drsjr.com.br.androidteste.data.entity.Promocao;
 
@@ -47,13 +49,18 @@ public class PromocaoAdapter extends RecyclerView.Adapter<PromocaoAdapter.Holder
 
     class HolderPromocao extends RecyclerView.ViewHolder {
 
-        private TextView mName;
-        private TextView mDescription;
+        @BindView(R.id.promocao_name)
+        TextView mName;
+
+        @BindView(R.id.promocao_description)
+        TextView mDescription;
 
         public HolderPromocao(View itemView) {
             super(itemView);
-            mName  = (TextView)  itemView.findViewById(R.id.promocao_name);
-            mDescription = (TextView) itemView.findViewById(R.id.promocao_description);
+            ButterKnife.bind(this, itemView);
+
+            /*mName  = (TextView)  itemView.findViewById(R.id.promocao_name);
+            mDescription = (TextView) itemView.findViewById(R.id.promocao_description);*/
         }
     }
 }

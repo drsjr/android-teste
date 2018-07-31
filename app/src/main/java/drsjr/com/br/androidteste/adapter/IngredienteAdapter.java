@@ -11,6 +11,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import drsjr.com.br.androidteste.ItemPedido;
 import drsjr.com.br.androidteste.R;
 import drsjr.com.br.androidteste.data.entity.Ingrediente;
@@ -62,17 +65,24 @@ public class IngredienteAdapter extends RecyclerView.Adapter<IngredienteAdapter.
     }
 
     class HolderIngrediente extends RecyclerView.ViewHolder
-            implements View.OnClickListener {
+            implements View.OnClickListener
+    {
 
-        private ImageView mImage;
-        private TextView mName;
-        private TextView mPrice;
+        @BindView(R.id.ingred_image)
+        ImageView mImage;
+
+        @BindView(R.id.ingred_name)
+        TextView mName;
+
+        @BindView(R.id.ingred_price)
+        TextView mPrice;
 
         public HolderIngrediente(View itemView) {
             super(itemView);
-            mImage = (ImageView) itemView.findViewById(R.id.ingred_image);
+            ButterKnife.bind(this, itemView);
+            /*mImage = (ImageView) itemView.findViewById(R.id.ingred_image);
             mName  = (TextView)  itemView.findViewById(R.id.ingred_name);
-            mPrice = (TextView)  itemView.findViewById(R.id.ingred_price);
+            mPrice = (TextView)  itemView.findViewById(R.id.ingred_price);*/
             itemView.setOnClickListener(this);
         }
 
@@ -82,6 +92,7 @@ public class IngredienteAdapter extends RecyclerView.Adapter<IngredienteAdapter.
             if(_itemPedido instanceof ItemPedido)
                 _itemPedido.sendIngrediente(listIngredientes.get(position));
         }
+
     }
 
 }

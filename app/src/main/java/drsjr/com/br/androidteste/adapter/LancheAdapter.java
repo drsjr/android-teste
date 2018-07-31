@@ -15,6 +15,8 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import drsjr.com.br.androidteste.R;
 import drsjr.com.br.androidteste.data.entity.Ingrediente;
 import drsjr.com.br.androidteste.data.entity.Lanche;
@@ -84,22 +86,31 @@ public class LancheAdapter extends RecyclerView.Adapter<LancheAdapter.HolderLanc
             implements View.OnClickListener,
                 PopupMenu.OnMenuItemClickListener{
 
-        private ImageView mImage;
-        private TextView mName;
-        private TextView mPrice;
-        private ImageView mMenu;
-        private PopupMenu popupMenu;
+        @BindView(R.id.lanche_image)
+        ImageView mImage;
+
+        @BindView(R.id.lanche_name)
+        TextView mName;
+
+        @BindView(R.id.lanche_price)
+        TextView mPrice;
+
+        @BindView(R.id.lanche_menu)
+        ImageView mMenu;
+
+        PopupMenu popupMenu;
 
         public HolderLanche(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
             popupMenu = new PopupMenu(itemView.getContext(), itemView);
             popupMenu.setOnMenuItemClickListener(this);
             popupMenu.inflate(R.menu.menu_item);
 
-            mImage = (ImageView) itemView.findViewById(R.id.lanche_image);
+            /*mImage = (ImageView) itemView.findViewById(R.id.lanche_image);
             mName  = (TextView)  itemView.findViewById(R.id.lanche_name);
             mPrice = (TextView)  itemView.findViewById(R.id.lanche_price);
-            mMenu = (ImageView) itemView.findViewById(R.id.lanche_menu);
+            mMenu = (ImageView) itemView.findViewById(R.id.lanche_menu);*/
             mMenu.setOnClickListener(this);
         }
 

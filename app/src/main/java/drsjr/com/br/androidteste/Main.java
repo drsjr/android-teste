@@ -18,7 +18,7 @@ import drsjr.com.br.androidteste.presenter.contract.MainContract;
 
 public class Main extends AppCompatActivity implements MainContract.ViewAction {
 
-    @BindView(R.id.container_fragment)
+
     View mContainer;
 
     @BindView(R.id.navigation)
@@ -62,6 +62,8 @@ public class Main extends AppCompatActivity implements MainContract.ViewAction {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //mContainer = (FrameLayout) findViewById(R.id.container_fragment);
+        //BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mLanche = LancheFragment.newInstance();
         mPromocao = PromocaoFragment.newInstance();
@@ -95,5 +97,10 @@ public class Main extends AppCompatActivity implements MainContract.ViewAction {
 
     private FragmentTransaction getTransaction() {
         return getSupportFragmentManager().beginTransaction();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
